@@ -1,0 +1,59 @@
+[
+  {
+    "_id": "5be16f00a1dfc816337af206",
+    "index": 7,
+    "guid": "6da4906e-2d3e-450d-8776-d4fbd7853cf8",
+    "isActive": false,
+    "balance": "$2,214.01",
+    "picture": "http://placehold.it/32x32",
+    "age": 28,
+    "eyeColor": "blue",
+    "name": {
+      "first": "Kimberly",
+      "last": "Oneal"
+    },
+    "company": "ROOFORIA",
+    "email": "kimberly.oneal@rooforia.name",
+    "phone": "+1 (870) 431-2729",
+    "address": "612 Arlington Place, Bawcomville, Virgin Islands, 5958",
+    "about": "Sunt reprehenderit culpa incididunt aliquip voluptate consequat Lorem occaecat. Exercitation eiusmod sit duis culpa quis ullamco mollit in mollit occaecat ad aliqua. Quis occaecat irure dolore sint aute ex mollit. Ea Lorem dolor ex laborum pariatur sint pariatur deserunt occaecat. Non esse esse aliquip Lorem quis ea ullamco eu adipisicing nostrud consequat pariatur laborum. Minim nostrud aliquip nulla voluptate irure culpa est non culpa quis elit cupidatat.",
+    "registered": "Tuesday, August 5, 2014 2:29 PM",
+    "latitude": "-9.526339",
+    "longitude": "-11.391886",
+    "tags": [
+      "nostrud",
+      "consectetur",
+      "do",
+      "exercitation",
+      "adipisicing"
+    ],
+    "range": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Bessie Talley"
+      },
+      {
+        "id": 1,
+        "name": "Atkins Knapp"
+      },
+      {
+        "id": 2,
+        "name": "Lucas Roth"
+      }
+    ],
+    "greeting": "Hello, Kimberly! You have 8 unread messages.",
+    "favoriteFruit": "banana"
+  }
+]

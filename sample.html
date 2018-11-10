@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <button id="btn">更新ボタン</button>
+  <div style="margin-top: 25px; background-color: tomato;">
+    AjaxのTest - XMLHttpRequest
+  </div>
+  <div id="ajax_result"></div>
+  <div style="margin-top: 25px; background-color: tomato;">
+    AjaxのTest(jQueryAPI) - コーディング楽、ユーザは減少傾向なのでわざわざ使わなくてもいいかも
+  </div>
+  <div id="ajax_result_jquery"></div>
+  <div style="margin-top: 25px; background-color: tomato;">
+    Ajaxのテスト - Microsoft.XMLHttp、file:///でも通信出来るという話だったが、うまく動かないです
+    <br>サーバ上だと動きます
+  </div>
+  <div id="ajax_result_ie"></div>
+  <div style="margin-top: 25px; background-color: tomato;">
+    JSONPのTest - クロスオリジンを考慮しなくてよい。商業レベルだと、CSRFを意識する必要があるとのこと
+  </div>
+  <div id="jsonp_result"></div>
+ 
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+  <script>
+    var JSONP_URL = "https://next.json-generator.com/api/json/get/NyeXC853S";
+    var AJAX_URL = './ajaxtest.json';
+
+    var INT = function(arg){
+      x = Math.abs(Math.floor(Math.random(arg)*10 - 1));
+        return x > 8 ? 1 : x;
+    };
+
+    /*
+      メモ：var hoge = 関数 
+      関数そのものがhogeに格納される
+      戻り値は、hoge()と記述する
+    */
+
+    //var getBrowser = function(){
+    //  var browsername = window.navigator.userAgent.toLowerCase();
+    //    console.log(browsername);
+    //    if(browsername == 'chrome'){
+    //      return 'chrome';
+    //    }else if(browsername == 'msie'){
+    //      return 'ie';
+    //    }else{
+    //      return 'others';
+    //    };
+    //};
+
+    var getJSON = function(data) {
+      document.getElementById('jsonp_result').innerHTML = JSON.stringify(data[INT()]); 
+      //switch(getBrowser()){
+      //  case 'chrome':
+      //    document.getElementById('jsonp_result').innerHTML = JSON.stringify(data[INT()]); 
+      //    break;
+      //  case 'ie':
+      //    document.getElementById('jsonp_result').innerHTML = data[INT()].toString(); 
+      //    break;
+      //  default:
+      //    document.getElementById('jsonp_result').innerHTML = data[INT()].toSource(); 
+      //    break;
+      //};
+    };
+
+    function testJSONP(){
+      var script = document.createElement('script');
+      script.src = JSONP_URL + "?callback=getJSON";
+      script.type = 'text/javascript';
+
+      var parent = document.getElementsByTagName('script')[0];
+      parent.parentNode.insertBefore(script, parent);
+    };
+
+    function testAjax(){
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function(){
+        var result = document.getElementById('ajax_result');
+        if(req.readyState == 4){
+          if(req.status == 200){
+            result.innerHTML = req.responseText; 
+          }else{
+            result.innerHTML = "ajax failed";
+          }
+        }else{
+          result.innerHTML = "connecting ...";
+        }
+      }
+      req.open('GET', AJAX_URL, true);
+      req.send(null);
+    };
+
+    function testjQueryAjax(){
+      $.ajax({
+        url: AJAX_URL,
+	dataType: 'html',
+	  success: function(data){
+	    $('#ajax_result_jquery').html(data);
+	  },
+      });
+    };
+
+    function testMSXMLHttp(){
+      var result = document.getElementById('ajax_result_ie');
+      try {
+        var req = new ActiveXObject('Microsoft.XMLHTTP');
+        req.onreadystatechange = function(){
+          if(req.readyState == 4){
+            if(req.status == 200){
+              result.innerHTML = req[0].responseText; 
+            }else{
+              result.innerHTML = "ajax failed";
+            }
+          }else{
+            result.innerHTML = "connecting ...";
+          }
+        }
+        req.open('GET', AJAX_URL, true);
+        req.send(null);
+
+        } catch(e) {
+          result.innerHTML = "ブラウザがIEでは無いので、使えません";
+      }
+    };
+
+    (function(){
+      testJSONP();
+      testAjax();
+      testjQueryAjax();
+      testMSXMLHttp();
+    })();
+
+    document.getElementById('btn').addEventListener('click', function(){
+      testJSONP();
+      testAjax();
+      testjQueryAjax();
+      testMSXMLHttp();
+    });
+  </script>
+</html>
