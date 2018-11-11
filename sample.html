@@ -5,6 +5,10 @@
   </head>
   <button id="btn">更新ボタン</button>
   <div style="margin-top: 25px; background-color: tomato;">
+    AjaxのTest - Fetch 
+  </div>
+  <div id="fetch_result"></div>
+  <div style="margin-top: 25px; background-color: tomato;">
     AjaxのTest - XMLHttpRequest
   </div>
   <div id="ajax_result"></div>
@@ -42,31 +46,20 @@
       戻り値は、hoge()と記述する
     */
 
-    //var getBrowser = function(){
-    //  var browsername = window.navigator.userAgent.toLowerCase();
-    //    console.log(browsername);
-    //    if(browsername == 'chrome'){
-    //      return 'chrome';
-    //    }else if(browsername == 'msie'){
-    //      return 'ie';
-    //    }else{
-    //      return 'others';
-    //    };
-    //};
-
     var getJSON = function(data) {
       document.getElementById('jsonp_result').innerHTML = JSON.stringify(data[INT()]); 
-      //switch(getBrowser()){
-      //  case 'chrome':
-      //    document.getElementById('jsonp_result').innerHTML = JSON.stringify(data[INT()]); 
-      //    break;
-      //  case 'ie':
-      //    document.getElementById('jsonp_result').innerHTML = data[INT()].toString(); 
-      //    break;
-      //  default:
-      //    document.getElementById('jsonp_result').innerHTML = data[INT()].toSource(); 
-      //    break;
-      //};
+    };
+
+    function testFetch(){
+      fetch(AJAX_URL)
+	.then(function(response){
+          return response.json();	
+	})
+	.then(function(json){
+          var result = document.getElementById('fetch_result');
+          console.log(json);
+          result.innerHTML = JSON.stringify(json[0]); 
+	});
     };
 
     function testJSONP(){
@@ -129,18 +122,20 @@
       }
     };
 
-    (function(){
+    function wrapper(){
       testJSONP();
       testAjax();
+      testFetch();
       testjQueryAjax();
       testMSXMLHttp();
+    };
+
+    (function(){
+      wrapper();
     })();
 
     document.getElementById('btn').addEventListener('click', function(){
-      testJSONP();
-      testAjax();
-      testjQueryAjax();
-      testMSXMLHttp();
+      wrapper();
     });
   </script>
 </html>
